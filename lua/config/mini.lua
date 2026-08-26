@@ -25,10 +25,12 @@ require('mini.trailspace').setup()
 
 require('mini.starter').setup()
 
-local animate = require('mini.animate')
-animate.setup({
-  cursor = { timing = animate.gen_timing.linear({ duration = 100, unit = 'total' }) },
-  scroll = { timing = animate.gen_timing.linear({ duration = 120, unit = 'total' }) },
+require('mini.animate').setup({
+  cursor = { enable = false },
+  scroll = { enable = false },
+  resize = { enable = false },
+  open = { enable = false },
+  close = { enable = false },
 })
 
 local map = vim.keymap.set

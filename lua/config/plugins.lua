@@ -1,6 +1,8 @@
 vim.pack.add({
   { src = 'https://github.com/nvim-mini/mini.nvim' },
   { src = 'https://github.com/nvim-tree/nvim-tree.lua' },
+  { src = 'https://github.com/mrjones2014/smart-splits.nvim' },
+  { src = 'https://github.com/folke/drop.nvim' },
   { src = 'https://github.com/nvim-lua/plenary.nvim' },
   { src = 'https://github.com/nvim-telescope/telescope.nvim' },
   { src = 'https://github.com/nvim-telescope/telescope-ui-select.nvim' },

@@ -1,9 +1,20 @@
 local map = vim.keymap.set
 
-map('n', 'H', '<C-w>h', { desc = 'Go to left window' })
-map('n', 'J', '<C-w>j', { desc = 'Go to lower window' })
-map('n', 'K', '<C-w>k', { desc = 'Go to upper window' })
-map('n', 'L', '<C-w>l', { desc = 'Go to right window' })
+require('smart-splits').setup({
+  ignored_filetypes = { 'NvimTree' },
+  default_amount = 4,
+})
+local smart_splits = require('smart-splits')
+
+map('n', 'H', smart_splits.move_cursor_left, { desc = 'Go to left window' })
+map('n', 'J', smart_splits.move_cursor_down, { desc = 'Go to lower window' })
+map('n', 'K', smart_splits.move_cursor_up, { desc = 'Go to upper window' })
+map('n', 'L', smart_splits.move_cursor_right, { desc = 'Go to right window' })
+
+map('n', '<C-Up>', smart_splits.resize_up, { desc = 'Increase window height' })
+map('n', '<C-Down>', smart_splits.resize_down, { desc = 'Decrease window height' })
+map('n', '<C-Left>', smart_splits.resize_left, { desc = 'Decrease window width' })
+map('n', '<C-Right>', smart_splits.resize_right, { desc = 'Increase window width' })
 
 map('v', 'J', ":m '>+1<CR>gv=gv", { desc = 'Move selection down' })
 map('v', 'K', ":m '<-2<CR>gv=gv", { desc = 'Move selection up' })
@@ -24,10 +35,11 @@ map('n', '<leader>wq', '<cmd>close<CR>', { desc = 'close window' })
 map('n', '<leader>wo', '<cmd>only<CR>', { desc = 'close other windows' })
 map('n', '<leader>w=', '<C-w>=', { desc = 'equalize window sizes' })
 map('n', '<leader>ww', '<C-w>w', { desc = 'switch to next window' })
-map('n', '<leader>wh', '<C-w>h', { desc = 'go to left window' })
-map('n', '<leader>wj', '<C-w>j', { desc = 'go to lower window' })
-map('n', '<leader>wk', '<C-w>k', { desc = 'go to upper window' })
-map('n', '<leader>wl', '<C-w>l', { desc = 'go to right window' })
+map('n', '<leader>wx', '<C-w>x', { desc = 'swap with next window' })
+map('n', '<leader>wh', smart_splits.move_cursor_left, { desc = 'go to left window' })
+map('n', '<leader>wj', smart_splits.move_cursor_down, { desc = 'go to lower window' })
+map('n', '<leader>wk', smart_splits.move_cursor_up, { desc = 'go to upper window' })
+map('n', '<leader>wl', smart_splits.move_cursor_right, { desc = 'go to right window' })
 
 map('n', '<C-s>', '<cmd>write<CR>', { desc = 'Save file' })
 map('i', '<C-s>', '<Esc><cmd>write<CR>', { desc = 'Save file and exit insert mode' })
