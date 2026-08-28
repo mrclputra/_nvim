@@ -14,7 +14,7 @@ vim.lsp.config('clangd', {
 })
 
 require('mason-lspconfig').setup({
-  ensure_installed = { 'lua_ls', 'basedpyright', 'clangd' },
+  ensure_installed = { 'lua_ls', 'basedpyright', 'clangd', 'cmake-language-server', 'glsl_analyzer' },
   automatic_enable = true,
 })
 

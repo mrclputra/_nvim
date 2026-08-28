@@ -19,7 +19,26 @@ require('mini.indentscope').setup()
 require('mini.diff').setup()
 require('mini.git').setup()
 
-require('mini.completion').setup()
+local function strip_json_null(tbl)
+  for k, v in pairs(tbl) do
+    if v == vim.NIL then
+      tbl[k] = nil
+    elseif type(v) == 'table' then
+      strip_json_null(v)
+    end
+  end
+end
+
+require('mini.completion').setup({
+  lsp_completion = {
+    process_items = function(items, base)
+      for _, item in ipairs(items) do
+        strip_json_null(item)
+      end
+      return MiniCompletion.default_process_items(items, base)
+    end,
+  },
+})
 
 require('mini.trailspace').setup()
 
