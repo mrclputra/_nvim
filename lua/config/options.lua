@@ -10,8 +10,8 @@ opt.cursorline = true
 opt.wrap = false
 
 opt.expandtab = true
-opt.shiftwidth = 2
-opt.tabstop = 2
+opt.shiftwidth = 3
+opt.tabstop = 3
 opt.smartindent = true
 
 opt.ignorecase = true
@@ -32,7 +32,7 @@ opt.timeoutlen = 300
 opt.list = true
 opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
-opt.completeopt = 'menuone,noselect'
+opt.completeopt = 'menuone,noselect,fuzzy'
 
 vim.env.RIPGREP_CONFIG_PATH = vim.fn.stdpath('config') .. '/.ripgreprc'
 

@@ -9,6 +9,10 @@ vim.lsp.config('lua_ls', {
   },
 })
 
+vim.lsp.config('clangd', {
+  cmd = { 'clangd', '--header-insertion=never' },
+})
+
 require('mason-lspconfig').setup({
   ensure_installed = { 'lua_ls', 'basedpyright', 'clangd' },
   automatic_enable = true,
