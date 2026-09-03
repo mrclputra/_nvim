@@ -44,14 +44,6 @@ require('mini.trailspace').setup()
 
 require('mini.starter').setup()
 
-require('mini.animate').setup({
-  cursor = { enable = false },
-  scroll = { enable = false },
-  resize = { enable = false },
-  open = { enable = false },
-  close = { enable = false },
-})
-
 local map = vim.keymap.set
 
 map('n', '<leader>tw', function() require('mini.trailspace').trim() end, { desc = 'trim trailing whitespace' })

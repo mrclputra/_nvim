@@ -1,6 +1,7 @@
 require('config.options')
 require('config.plugins')
 require('config.mini')
+require('config.smear-cursor')
 require('config.tree')
 require('config.telescope')
 -- require('config.drop')
