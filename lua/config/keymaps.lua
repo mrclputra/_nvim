@@ -6,10 +6,10 @@ require('smart-splits').setup({
 })
 local smart_splits = require('smart-splits')
 
-map('n', 'H', smart_splits.move_cursor_left, { desc = 'Go to left window' })
-map('n', 'J', smart_splits.move_cursor_down, { desc = 'Go to lower window' })
-map('n', 'K', smart_splits.move_cursor_up, { desc = 'Go to upper window' })
-map('n', 'L', smart_splits.move_cursor_right, { desc = 'Go to right window' })
+map('n', '<C-h>', smart_splits.move_cursor_left, { desc = 'Go to left window' })
+map('n', '<C-j>', smart_splits.move_cursor_down, { desc = 'Go to lower window' })
+map('n', '<C-k>', smart_splits.move_cursor_up, { desc = 'Go to upper window' })
+map('n', '<C-l>', smart_splits.move_cursor_right, { desc = 'Go to right window' })
 
 map('n', '<C-Up>', smart_splits.resize_up, { desc = 'Increase window height' })
 map('n', '<C-Down>', smart_splits.resize_down, { desc = 'Decrease window height' })

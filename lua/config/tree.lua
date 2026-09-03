@@ -17,6 +17,12 @@ require('nvim-tree').setup({
     enable = true,
     update_root = true,
   },
+  on_attach = function(bufnr)
+    local api = require('nvim-tree.api')
+    api.config.mappings.default_on_attach(bufnr)
+    vim.keymap.del('n', '<C-k>', { buffer = bufnr })
+    vim.keymap.set('n', 'gi', api.node.show_info_popup, { desc = 'nvim-tree: Info', buffer = bufnr, nowait = true })
+  end,
 })
 
 vim.keymap.set('n', '<leader>e', '<cmd>NvimTreeToggle<CR>', { desc = 'file explorer' })
