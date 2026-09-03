@@ -11,4 +11,9 @@ vim.pack.add({
   { src = 'https://github.com/mason-org/mason.nvim' },
   { src = 'https://github.com/mason-org/mason-lspconfig.nvim' },
   { src = 'https://github.com/sphamba/smear-cursor.nvim' },
+  { src = 'https://github.com/folke/tokyonight.nvim' },
+  { src = 'https://github.com/ramojus/mellifluous.nvim' },
 })
+
+vim.opt.background = 'light'
+vim.cmd.colorscheme('mellifluous')

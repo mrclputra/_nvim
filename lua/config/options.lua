@@ -35,5 +35,3 @@ opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 opt.completeopt = 'menuone,noselect,fuzzy'
 
 vim.env.RIPGREP_CONFIG_PATH = vim.fn.stdpath('config') .. '/.ripgreprc'
-
-vim.cmd.colorscheme('habamax')
