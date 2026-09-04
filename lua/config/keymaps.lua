@@ -47,9 +47,11 @@ map('i', '<C-s>', '<Esc><cmd>write<CR>', { desc = 'Save file and exit insert mod
 -- Creates a toggleable terminal split. Tracks win+buf together (not just the
 -- window id) so that switching the window to a different buffer, or closing
 -- the window some other way (e.g. `:only`), doesn't leave the toggle in a
--- broken state on the next call.
-local function make_terminal_toggle(split_cmd, resize)
-  local buf, win
+-- broken state on the next call. Also remembers the last size the window was
+-- resized to (e.g. via smart-splits resize keymaps) and restores it the next
+-- time the terminal is opened, for the rest of the nvim session.
+local function make_terminal_toggle(split_cmd, default_size, get_size, set_size)
+  local buf, win, last_size
   return function()
     local showing_term = win and vim.api.nvim_win_is_valid(win) and buf and vim.api.nvim_win_get_buf(win) == buf
 
@@ -57,6 +59,7 @@ local function make_terminal_toggle(split_cmd, resize)
       if #vim.api.nvim_list_wins() == 1 then
         return -- can't close the last window; leave it open
       end
+      last_size = get_size(win)
       vim.api.nvim_win_close(win, false)
       win = nil
       return
@@ -67,7 +70,7 @@ local function make_terminal_toggle(split_cmd, resize)
     -- than hijacking whatever window used to hold the terminal
     vim.cmd(split_cmd)
     win = vim.api.nvim_get_current_win()
-    resize(win)
+    set_size(win, last_size or default_size)
 
     if buf and vim.api.nvim_buf_is_valid(buf) then
       vim.api.nvim_win_set_buf(win, buf)
@@ -79,16 +82,22 @@ local function make_terminal_toggle(split_cmd, resize)
   end
 end
 
-local toggle_terminal = make_terminal_toggle('botright split', function(win)
-  vim.api.nvim_win_set_height(win, 15)
-end)
+local toggle_terminal = make_terminal_toggle(
+  'botright split',
+  15,
+  vim.api.nvim_win_get_height,
+  vim.api.nvim_win_set_height
+)
 
 map('n', '<leader>tt', toggle_terminal, { desc = 'toggle terminal' })
 map('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
-local toggle_vterm = make_terminal_toggle('botright vsplit', function(win)
-  vim.api.nvim_win_set_width(win, 80)
-end)
+local toggle_vterm = make_terminal_toggle(
+  'botright vsplit',
+  80,
+  vim.api.nvim_win_get_width,
+  vim.api.nvim_win_set_width
+)
 
 -- Terminals send Ctrl+/ and Ctrl+_ as the same byte, so bind both.
 map({ 'n', 'i' }, '<C-/>', toggle_vterm, { desc = 'Toggle terminal (right)' })
