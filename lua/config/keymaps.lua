@@ -44,50 +44,51 @@ map('n', '<leader>wl', smart_splits.move_cursor_right, { desc = 'go to right win
 map('n', '<C-s>', '<cmd>write<CR>', { desc = 'Save file' })
 map('i', '<C-s>', '<Esc><cmd>write<CR>', { desc = 'Save file and exit insert mode' })
 
-local term_buf, term_win
-local function toggle_terminal()
-  if term_win and vim.api.nvim_win_is_valid(term_win) then
-    vim.api.nvim_win_close(term_win, false)
-    term_win = nil
-    return
-  end
+-- Creates a toggleable terminal split. Tracks win+buf together (not just the
+-- window id) so that switching the window to a different buffer, or closing
+-- the window some other way (e.g. `:only`), doesn't leave the toggle in a
+-- broken state on the next call.
+local function make_terminal_toggle(split_cmd, resize)
+  local buf, win
+  return function()
+    local showing_term = win and vim.api.nvim_win_is_valid(win) and buf and vim.api.nvim_win_get_buf(win) == buf
 
-  vim.cmd('botright split')
-  term_win = vim.api.nvim_get_current_win()
-  vim.api.nvim_win_set_height(term_win, 15)
+    if showing_term then
+      if #vim.api.nvim_list_wins() == 1 then
+        return -- can't close the last window; leave it open
+      end
+      vim.api.nvim_win_close(win, false)
+      win = nil
+      return
+    end
 
-  if term_buf and vim.api.nvim_buf_is_valid(term_buf) then
-    vim.api.nvim_win_set_buf(term_win, term_buf)
-  else
-    vim.cmd('terminal')
-    term_buf = vim.api.nvim_get_current_buf()
+    -- not currently showing the terminal (never opened, or the window got
+    -- repurposed for something else) -- always open a fresh split rather
+    -- than hijacking whatever window used to hold the terminal
+    vim.cmd(split_cmd)
+    win = vim.api.nvim_get_current_win()
+    resize(win)
+
+    if buf and vim.api.nvim_buf_is_valid(buf) then
+      vim.api.nvim_win_set_buf(win, buf)
+    else
+      vim.cmd('terminal')
+      buf = vim.api.nvim_get_current_buf()
+    end
+    vim.cmd('startinsert')
   end
-  vim.cmd('startinsert')
 end
+
+local toggle_terminal = make_terminal_toggle('botright split', function(win)
+  vim.api.nvim_win_set_height(win, 15)
+end)
 
 map('n', '<leader>tt', toggle_terminal, { desc = 'toggle terminal' })
 map('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
-local vterm_buf, vterm_win
-local function toggle_vterm()
-  if vterm_win and vim.api.nvim_win_is_valid(vterm_win) then
-    vim.api.nvim_win_close(vterm_win, false)
-    vterm_win = nil
-    return
-  end
-
-  vim.cmd('botright vsplit')
-  vterm_win = vim.api.nvim_get_current_win()
-  vim.api.nvim_win_set_width(vterm_win, 80)
-
-  if vterm_buf and vim.api.nvim_buf_is_valid(vterm_buf) then
-    vim.api.nvim_win_set_buf(vterm_win, vterm_buf)
-  else
-    vim.cmd('terminal')
-    vterm_buf = vim.api.nvim_get_current_buf()
-  end
-  vim.cmd('startinsert')
-end
+local toggle_vterm = make_terminal_toggle('botright vsplit', function(win)
+  vim.api.nvim_win_set_width(win, 80)
+end)
 
 -- Terminals send Ctrl+/ and Ctrl+_ as the same byte, so bind both.
 map({ 'n', 'i' }, '<C-/>', toggle_vterm, { desc = 'Toggle terminal (right)' })
