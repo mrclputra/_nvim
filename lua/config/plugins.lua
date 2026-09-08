@@ -13,6 +13,9 @@ vim.pack.add({
   { src = 'https://github.com/sphamba/smear-cursor.nvim' },
   { src = 'https://github.com/folke/tokyonight.nvim' },
   { src = 'https://github.com/ramojus/mellifluous.nvim' },
+  { src = 'https://github.com/lewis6991/satellite.nvim' },
+  { src = 'https://github.com/sindrets/diffview.nvim' },
+  { src = 'https://github.com/lewis6991/gitsigns.nvim' },
 })
 
 vim.opt.background = 'light'

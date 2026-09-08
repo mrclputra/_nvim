@@ -17,7 +17,6 @@ require('mini.ai').setup()
 require('mini.indentscope').setup()
 
 require('mini.diff').setup()
-require('mini.git').setup()
 
 local function strip_json_null(tbl)
   for k, v in pairs(tbl) do
@@ -76,6 +75,7 @@ miniclue.setup({
     miniclue.gen_clues.z(),
     { mode = 'n', keys = '<Leader>c', desc = '+code' },
     { mode = 'n', keys = '<Leader>f', desc = '+find' },
+    { mode = 'n', keys = '<Leader>g', desc = '+git' },
     { mode = 'n', keys = '<Leader>t', desc = '+tools' },
     { mode = 'n', keys = '<Leader>w', desc = '+window' },
   },

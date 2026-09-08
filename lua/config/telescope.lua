@@ -19,5 +19,6 @@ map('n', '<leader>fh', builtin.help_tags, { desc = 'help tags' })
 map('n', '<leader>fr', builtin.oldfiles, { desc = 'recent files' })
 map('n', '<leader>fd', builtin.diagnostics, { desc = 'diagnostics' })
 map('n', '<leader>fs', builtin.lsp_document_symbols, { desc = 'document symbols (outline)' })
+map('n', '<leader>ft', function() builtin.colorscheme({ enable_preview = true }) end, { desc = 'switch colorscheme' })
 
 map('n', '<leader>cD', function() builtin.diagnostics({ bufnr = 0 }) end, { desc = 'buffer diagnostics' })

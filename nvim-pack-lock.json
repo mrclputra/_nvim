@@ -1,8 +1,16 @@
 {
   "plugins": {
+    "diffview.nvim": {
+      "rev": "4516612fe98ff56ae0415a259ff6361a89419b0a",
+      "src": "https://github.com/sindrets/diffview.nvim"
+    },
     "drop.nvim": {
       "rev": "f27c147af59c41712dd3d513cb03f4fae7aec46d",
       "src": "https://github.com/folke/drop.nvim"
+    },
+    "gitsigns.nvim": {
+      "rev": "5be654f2232c10ddcad19c1607a67b6b4b78fc29",
+      "src": "https://github.com/lewis6991/gitsigns.nvim"
     },
     "mason-lspconfig.nvim": {
       "rev": "24d4ab0838b250753b307a8747ade06dc99aed9d",
@@ -36,6 +44,10 @@
     "plenary.nvim": {
       "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
       "src": "https://github.com/nvim-lua/plenary.nvim"
+    },
+    "satellite.nvim": {
+      "rev": "87843c9c8f28b54332497302de380a6d94c9e82b",
+      "src": "https://github.com/lewis6991/satellite.nvim"
     },
     "smart-splits.nvim": {
       "rev": "5e92431aa7f5e618c2f6825f682df6d94f6e0a02",
