@@ -16,7 +16,10 @@ vim.pack.add({
   { src = 'https://github.com/lewis6991/satellite.nvim' },
   { src = 'https://github.com/sindrets/diffview.nvim' },
   { src = 'https://github.com/lewis6991/gitsigns.nvim' },
+  { src = 'https://github.com/brianhuster/live-preview.nvim' },
+  { src = 'https://github.com/leobeosab/tearout.nvim' },
+  { src = 'https://github.com/morhetz/gruvbox' },
 })
 
-vim.opt.background = 'light'
-vim.cmd.colorscheme('mellifluous')
+vim.opt.background = 'dark'
+vim.cmd.colorscheme('gruvbox')
